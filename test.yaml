@@ -1,0 +1,24 @@
+# x86 pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: x86-test
+spec:
+  containers:
+  - name: x86
+    image: nginx
+  nodeSelector:
+    kubernetes.io/arch: amd64
+
+---
+# arm64 pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: arm64-test
+spec:
+  containers:
+  - name: arm64
+    image: public.ecr.aws/amazonlinux/amazonlinux:2-arm64
+  nodeSelector:
+    kubernetes.io/arch: arm64    
