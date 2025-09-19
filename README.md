@@ -43,7 +43,7 @@ This repository contains Terraform code to create an Amazon EKS cluster in a ded
    terraform init
 5. Apply the Configuration:
    ```bash
-  terraform apply
+   terraform apply
 
 6.  Scheduling Pods on x86 vs Graviton
 
@@ -53,49 +53,12 @@ kubernetes.io/arch=amd64 → x86 nodes
 
 kubernetes.io/arch=arm64 → Graviton nodes
 
-Developers can set nodeSelector in pod specs to target a specific architecture:
+Developers can set nodeSelector in pod specs to target a specific architecture: test.yaml
 
-apiVersion: v1
-kind: Pod
-metadata:
-  name: sample-x86
-spec:
-  containers:
-    - name: nginx
-      image: nginx
-  nodeSelector:
-    kubernetes.io/arch: amd64
-
-apiVersion: v1
-kind: Pod
-metadata:
-  name: sample-arm64
-spec:
-  containers:
-    - name: nginx
-      image: nginx
-  nodeSelector:
-    kubernetes.io/arch: arm64
-
-General Architecture
-flowchart LR
-    subgraph AWS_Cloud["AWS Cloud"]
-        ALB[Application Load Balancer]
-        EKS[EKS Cluster\nx86 + ARM nodes]
-        RDS[(PostgreSQL RDS)]
-    end
-
-    subgraph CI_CD["CI/CD"]
-        GitHub[GitHub Actions / GitLab CI]
-        Registry[ECR / Artifact Registry]
-    end
-
-    User -->|HTTPS| ALB
-    ALB -->|Service Traffic| EKS
-    EKS -->|DB Traffic| RDS
-    GitHub --> Registry --> EKS
 
 1. Cloud Environment Structure
+
+Diagram provided in the file: diagram.md
 
 AWS Accounts Recommended:
 
